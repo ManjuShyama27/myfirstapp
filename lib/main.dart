@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myfirstapp/Buttons.dart';
+import 'package:myfirstapp/FormFile.dart';
+import 'package:myfirstapp/GeminiFile.dart';
+import 'package:myfirstapp/LottieFiles.dart';
 import 'package:myfirstapp/MyCheckBox.dart';
 import 'package:myfirstapp/MyTabBar.dart';
 import 'package:myfirstapp/RadioButtons.dart';
@@ -11,7 +15,7 @@ void main() {
 
 var myTheme = ThemeData(
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.pinkAccent,
+      seedColor: myColor,
       brightness: Brightness.dark,
     ),
     textTheme: TextTheme(
@@ -26,11 +30,13 @@ var myTheme = ThemeData(
       bodyMedium: GoogleFonts.merriweather(),
       displaySmall: GoogleFonts.pacifico(),
     ),
-    iconTheme: IconThemeData(color: Colors.pink));
+    iconTheme: IconThemeData(color: myColor));
+
+Color myColor = Colors.red;
 
 var firstTheme = ThemeData(
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.indigo,
+      seedColor: myColor,
       brightness: Brightness.light,
     ),
     textTheme: TextTheme(
@@ -45,7 +51,7 @@ var firstTheme = ThemeData(
       bodyMedium: GoogleFonts.roboto(),
       displaySmall: GoogleFonts.abel(),
     ),
-    iconTheme: IconThemeData(color: Colors.indigoAccent));
+    iconTheme: IconThemeData(color: myColor));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -57,9 +63,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: firstTheme,
-      home: const MyHomePage(
-        title: 'MY POKEMONS',
-      ),
+      home: Lottiefiles(),
       initialRoute: '/',
       routes: {
         '/first': (context) => Buttons(),
@@ -81,9 +85,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // endDrawer: Drawer(
+      //     key: scaffoldKey,
+      //     child: ListView(
+      //         // Important: Remove any padding from the ListView.
+      //         padding: EdgeInsets.zero,
+      //         children: [
+      //           DrawerHeader(
+      //             decoration: BoxDecoration(
+      //                 gradient:
+      //                     LinearGradient(colors: [Colors.pink, Colors.teal])),
+      //             child: Row(
+      //               children: [
+      //                 Align(
+      //                   alignment: Alignment.centerLeft,
+      //                   child: Text(
+      //                     'End Drawer',
+      //                     style: TextStyle(fontSize: 30, color: Colors.white),
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ),
+      //           ListTile(
+      //             title: const Text('Tile 1'),
+      //             onTap: () {
+      //               Navigator.pushNamed(context, '/first');
+      //             },
+      //           ),
+      //           ListTile(
+      //             title: const Text('Tile 2'),
+      //             onTap: () {
+      //               Navigator.pushNamed(context, '/first');
+      //             },
+      //           ),
+      //         ])),
       drawer: Drawer(
         elevation: 2,
         shadowColor: Theme.of(context).secondaryHeaderColor,
@@ -94,12 +135,16 @@ class _MyHomePageState extends State<MyHomePage> {
             DrawerHeader(
               decoration: BoxDecoration(
                   gradient: LinearGradient(colors: [Colors.pink, Colors.teal])),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'FLUTTER WIDGETS',
-                  style: TextStyle(fontSize: 30, color: Colors.white),
-                ),
+              child: Row(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'FLUTTER WIDGETS',
+                      style: TextStyle(fontSize: 30, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
             ),
             ListTile(
@@ -118,6 +163,15 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
+              title: const Text('Application Form'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FormFileScreen()),
+                );
+              },
+            ),
+            ListTile(
               title: const Text('Checkbox'),
               onTap: () {
                 Navigator.popAndPushNamed(context, '/fourth');
@@ -128,11 +182,29 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () => Navigator.pushNamedAndRemoveUntil(
                   context, '/third', ModalRoute.withName('/')),
             ),
+            ListTile(
+              title: const Text('Contact Me'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FormFileScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Gemini'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Gemini()),
+                );
+              },
+            ),
           ],
         ),
       ),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: myColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(25),
@@ -147,93 +219,126 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [],
       ),
       body: Center(
-          child: SingleChildScrollView(
-        child: GridTile(
-            child: Column(
-          children: [
-            InkWell(
-              onTap: () {
-                print('Clicked on pikachu');
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 100,
+            height: 100,
+            color: myColor,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          title: const Text('Pick a color!'),
+                          content: SingleChildScrollView(
+                              child: ColorPicker(
+                            pickerColor: myColor,
+                            onColorChanged: changeColor,
+                          )));
+                    });
               },
-              child: Theme(
-                data: myTheme,
-                child: Card(
-                  child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Pikachu'.toUpperCase(),
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                color: Colors.indigo,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w800,
-                              )),
-                          Image.asset(
-                            'assets/images/pikachu.jpeg',
-                            fit: BoxFit.fill,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Card(
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Squirtle'.toUpperCase(),
-                          style: TextStyle(
-                            color: Colors.indigo,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800,
-                          )),
-                      Image.asset(
-                        'assets/images/squirtle.jpeg',
-                        fit: BoxFit.fill,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Card(
-              color: Colors.grey,
-              elevation: 7,
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Raichu'.toUpperCase(),
-                          style: TextStyle(
-                            color: Colors.indigo,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800,
-                          )),
-                      Image.asset(
-                        'assets/images/raichu.png',
-                        fit: BoxFit.fill,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
-        )),
-      )),
+              child: Text('Pick Color'))
+        ],
+      )
+          //     SingleChildScrollView(
+          //   child: GridTile(
+          //       child: Column(
+          //     children: [
+          //       InkWell(
+          //         onTap: () {
+          //           print('Clicked on pikachu');
+          //         },
+          //         child: Theme(
+          //           data: myTheme,
+          //           child: Card(
+          //             child: Center(
+          //               child: Padding(
+          //                 padding: EdgeInsets.all(5),
+          //                 child: Column(
+          //                   mainAxisAlignment: MainAxisAlignment.start,
+          //                   crossAxisAlignment: CrossAxisAlignment.start,
+          //                   children: [
+          //                     Text('Pikachu'.toUpperCase(),
+          //                         style: TextStyle(
+          //                           fontFamily: 'Montserrat',
+          //                           color: Colors.indigo,
+          //                           fontSize: 18,
+          //                           fontWeight: FontWeight.w800,
+          //                         )),
+          //                     Image.asset(
+          //                       'assets/images/pikachu.jpeg',
+          //                       fit: BoxFit.fill,
+          //                     ),
+          //                   ],
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //       Card(
+          //         child: Center(
+          //           child: Padding(
+          //             padding: EdgeInsets.all(5),
+          //             child: Column(
+          //               mainAxisAlignment: MainAxisAlignment.start,
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               children: [
+          //                 Text('Squirtle'.toUpperCase(),
+          //                     style: TextStyle(
+          //                       color: Colors.indigo,
+          //                       fontSize: 18,
+          //                       fontWeight: FontWeight.w800,
+          //                     )),
+          //                 Image.asset(
+          //                   'assets/images/squirtle.jpeg',
+          //                   fit: BoxFit.fill,
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //       Card(
+          //         color: Colors.grey,
+          //         elevation: 7,
+          //         child: Center(
+          //           child: Padding(
+          //             padding: EdgeInsets.all(5),
+          //             child: Column(
+          //               mainAxisAlignment: MainAxisAlignment.start,
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               children: [
+          //                 Text('Raichu'.toUpperCase(),
+          //                     style: TextStyle(
+          //                       color: Colors.indigo,
+          //                       fontSize: 18,
+          //                       fontWeight: FontWeight.w800,
+          //                     )),
+          //                 Image.asset(
+          //                   'assets/images/raichu.png',
+          //                   fit: BoxFit.fill,
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //       )
+          //     ],
+          //   )),
+          // )
+          ),
     );
+  }
+
+  void changeColor(Color color) {
+    setState(() => myColor = color);
   }
 }
