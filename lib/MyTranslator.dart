@@ -11,7 +11,7 @@ class MyTranslator extends StatefulWidget {
 }
 
 class _MyTranslatorState extends State<MyTranslator> {
-  String API_KEY = "AIzaSyCsbYA-HcMLJCxoOF49QccvXUx6o8eXMJk";
+  String API_KEY = "YOUR_GEMINI_API_KEY";
 
   dynamic response;
   void translate(String fromLang, String toLang, String input) async {
