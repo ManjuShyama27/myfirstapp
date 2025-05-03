@@ -16,7 +16,7 @@ class Affirmly extends StatefulWidget {
 
 class _AffirmlyState extends State<Affirmly> {
   ScheduledTask? scheduledTask;
-  String apiKey = "AIzaSyCsbYA-HcMLJCxoOF49QccvXUx6o8eXMJk";
+  String apiKey = "YOUR_GEMINI_API_KEY";
 
   dynamic response;
   String myaffirmation = "";
