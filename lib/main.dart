@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myfirstapp/Affirmly.dart';
 import 'package:myfirstapp/Buttons.dart';
 import 'package:myfirstapp/FormFile.dart';
 import 'package:myfirstapp/GeminiFile.dart';
 import 'package:myfirstapp/LottieFiles.dart';
 import 'package:myfirstapp/MyCheckBox.dart';
 import 'package:myfirstapp/MyTabBar.dart';
+import 'package:myfirstapp/MyTranslator.dart';
 import 'package:myfirstapp/RadioButtons.dart';
+import 'package:myfirstapp/local_notifications.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await LocalNotifications.init();
   runApp(const MyApp());
 }
 
@@ -63,7 +68,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: firstTheme,
-      home: Lottiefiles(),
+      home: Affirmly(),
       initialRoute: '/',
       routes: {
         '/first': (context) => Buttons(),

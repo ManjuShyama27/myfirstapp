@@ -37,6 +37,12 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_colorpicker: ^1.1.0
   lottie:
+  translator:
+  google_generative_ai:
+  flutter_timezone:
+  flutter_local_notifications:
+  rxdart:
+  cron:
 
 dev_dependencies:
   flutter_test:
@@ -48,7 +54,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-  google_generative_ai: ^0.2.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -67,6 +72,7 @@ flutter:
    - assets/images/raichu.png
    - assets/images/bulbasaur.png
    - assets/images/squirtle.jpeg
+   - assets/images/bag.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
